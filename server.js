@@ -19,7 +19,9 @@
 // THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
 
 const express = require('express');
+const { fstat } = require('fs');
 const path = require('path')
+const fs = require('fs')
 // const landingPage = require('./public/index.html');
 // const notesPage = require('./public/notes.html');
 const PORT = process.env.port || 3001;
@@ -41,6 +43,16 @@ app.get('/', (req, res) =>
 app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, './public/notes.html'))
 );
+
+app.get('/api/notes', (req, res) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.json(JSON.parse(data));
+        }
+    });
+});
 
 // GET ROUTE for all others
 app.get('*', (req, res) =>
