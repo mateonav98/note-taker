@@ -1,29 +1,15 @@
-// GIVEN a note-taking application
-
-
-// WHEN I click on the link to the notes page
-// THEN I am presented with a page with existing notes listed in the left-hand column, plus empty fields to enter a new note title and the note’s text in the right-hand column
-
-
-// WHEN I click on the Save icon
-// THEN the new note I have entered is saved and appears in the left-hand column with the other existing notes
-
-
 const express = require('express');
-const { fstat } = require('fs');
 const path = require('path');
 const fs = require('fs');
 const uuid = require('./helpers/uuid.js');
-const { json } = require('express/lib/response');
-// const landingPage = require('./public/index.html');
-// const notesPage = require('./public/notes.html');
+
 const PORT = process.env.port || 3001;
-// const api = require('./public/assets/js/index.js');
 
 const app = express ();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use('/api', api);
+
 
 app.use(express.static('public'));
 
@@ -37,7 +23,7 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'))
 });
 
-//  Read the `db.json` file and return all saved notes as JSO
+//  GET ROUTE TO stored noted, read the `db.json` file and return all saved notes as JSO
 app.get('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if(err) {
@@ -54,17 +40,22 @@ app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add new note`)
     const { title, text } = req.body;
     if (title && text) {
+        // Object to be saved in our json file
       const newNote = {
         title,
         text,
+        //unique id
         id: uuid(),
       };
+    //   Reading data from our json file
       fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if(err) {
             console.log(err);
         } else {
+            // combining data written in the new note with data stored in db.json ile
             const parsedNotes = JSON.parse(data);
             parsedNotes.push(newNote)
+            // witing nre data to the json file
             fs.writeFile(
                 './db/db.json', 
                 JSON.stringify(parsedNotes, null, 4),
@@ -75,9 +66,9 @@ app.post('/api/notes', (req, res) => {
                         );
                     }
                   });
-              
+                //   will let user know note has been written
                   const response = {
-                    status: 'success',
+                    status: 'Completed',
                     body: newNote,
                   };
               
@@ -90,7 +81,7 @@ app.post('/api/notes', (req, res) => {
 
       
               
-// GET ROUTE for all others
+// GET ROUTE for all others pathways
 app.get('*', (req, res) =>
     res.sendFile(path.join(__dirname, './public/index.html'))
 );
