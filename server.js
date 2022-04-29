@@ -63,15 +63,15 @@ app.post('/api/notes', (req, res) => {
         if(err) {
             console.log(err);
         } else {
-            let parsedNotes = JSON.parse(data);
-            parsedNotes = parsedNotes.push(newNote)
+            const parsedNotes = JSON.parse(data);
+            parsedNotes.push(newNote)
             fs.writeFile(
                 './db/db.json', 
                 JSON.stringify(parsedNotes, null, 4),
                 (writeErr) =>
                     writeErr 
                         ? console.error(writeErr) 
-                        : console.info('Successfully updated notes')
+                        : console.info('New note has been created')
                         );
                     }
                   });
@@ -84,7 +84,7 @@ app.post('/api/notes', (req, res) => {
                   console.log(response);
                   res.json(response);
                 } else {
-                  res.json('Error in posting review');
+                  res.json('Failed to create new note');
                 }
               });
 
