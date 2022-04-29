@@ -1,32 +1,12 @@
 [
     {
-        "title": "hi",
-        "text": "hi",
-        "id": "af2d"
+        "title": "Grocery List",
+        "text": "1. Noodles\n2. Almond milk\n3. Tomatos\n4. Strawberrys",
+        "id": "79b5"
     },
     {
-        "title": "hello",
-        "text": "mateo",
-        "id": "4d2c"
-    },
-    {
-        "title": "mateo",
-        "text": "OI",
-        "id": "a7af"
-    },
-    {
-        "title": "wdss",
-        "text": "dsc",
-        "id": "7e9d"
-    },
-    {
-        "title": "hola",
-        "text": "boo",
-        "id": "98d4"
-    },
-    {
-        "title": "dsc",
-        "text": "dccd",
-        "id": "9920"
+        "title": "To Do",
+        "text": "1. Homework\n2. Code Drills\n3. Code",
+        "id": "0627"
     }
 ]
